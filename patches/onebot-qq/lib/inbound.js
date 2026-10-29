@@ -1,5 +1,5 @@
 // 语音走 QQ 原生转写（NapCat 的 fetch_ptt_text）：先转写再派发，避免占位符加迟到补交造成两条回复。
-const { prepareNativeVoice } = await import(process.env.DSH_QQ_NATIVE_VOICE_HOOK ?? 'file:///@DSH_DATA_URL@/tools/qq-native-voice.mjs');
+const { prepareNativeVoice } = await import(process.env.DSH_QQ_NATIVE_VOICE_HOOK ?? '@DSH_DATA_URL@/tools/qq-native-voice.mjs');
 /**
  * Inbound pipeline (M2-D1-PR4): the OneBot-11 → agent-turn path. Two pieces:
  * `normalizeOneBot11`, the pure protocol-adaptation seam that reduces one
