@@ -41,7 +41,7 @@ const DEFAULTS = {
     pushToken: '',
     // 审批回复主要靠轮询 get_friend_msg_history（HTTP 上报在多实例下不可靠）
     pollIntervalMs: 2000,
-    logPath: '@DSH_DATA@\\qq\\exec-approval.log',
+    logPath: 'D:\\DSH-Data\\qq\\exec-approval.log',
     maxDetailChars: 1200,
 };
 

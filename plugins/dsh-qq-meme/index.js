@@ -11,7 +11,16 @@
 import { createHash } from 'node:crypto';
 import { mkdir, readdir, readFile, writeFile, stat } from 'node:fs/promises';
 import { extname, isAbsolute, join, basename } from 'node:path';
-import { defineTool } from '@deepseek-ai/dsh-tools';
+// 静态 import 在解析失败时会让整个模块静默挂掉，连一行日志都不留
+// （踩过：package.json 里多写一个 exports，插件就再也注册不上）。
+// 所以这里改成动态导入，把失败原因打到控制台再抛出去。
+let defineTool;
+try {
+  ({ defineTool } = await import('@deepseek-ai/dsh-tools'));
+} catch (err) {
+  console.error('[qq-meme] 无法加载 @deepseek-ai/dsh-tools，插件未注册：', err);
+  throw err;
+}
 
 export const name = 'qq-meme';
 export const inject = ['tools', 'systemPrompt'];
@@ -20,7 +29,7 @@ const IMAGE_EXT = new Set(['.jpg', '.jpeg', '.png', '.gif', '.webp', '.bmp']);
 
 const DEFAULTS = {
     enabled: true,
-    memesDir: '@DSH_DATA@\\qq\\memes',
+    memesDir: 'D:\\DSH-Data\\qq\\memes',
     apiBase: 'http://127.0.0.1:3001',
     apiToken: '',
     defaultTarget: '',
@@ -151,12 +160,17 @@ export function apply(ctx, rawConfig) {
         throw new Error('表情包只用于 QQ 会话；当前是桌面端会话，不发图');
     }
 
-    ctx.systemPrompt.section({
-        name: 'tools:qq-meme',
-        order: 95,
-        // 函数形式：每次组装提示词时才求值，只给 QQ 会话注入
-        text: (assembly) => (config.qqOnly && !isQQAgent(assembly?.agent) ? '' : PROMPT),
-    });
+    try {
+        ctx.systemPrompt.section({
+            name: 'tools:qq-meme',
+            order: 95,
+            // 函数形式：每次组装提示词时才求值，只给 QQ 会话注入
+            text: (assembly) => (config.qqOnly && !isQQAgent(assembly?.agent) ? '' : PROMPT),
+        });
+    } catch (error) {
+        // 提示词注入失败不该连累工具注册
+        console.error('[qq-meme] 提示词注入失败：', error);
+    }
 
     ctx.tools.register(defineTool({
         name: 'qq_meme_tags',

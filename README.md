@@ -19,7 +19,21 @@
 
 - DSH 桌面端（Electron 版），`dsh` 命令可用（脚本默认找 `D:\tools\DeepSeekharness\resources\runtime\cli\bin\dsh.cmd`，找不到会在 PATH 里找 `dsh`）
 - 一个 QQ 小号 + [NapCat](https://github.com/NapNeko/NapCatQQ)（Shell 版），已登录并开启 OneBot 11 的 HTTP 服务端
+- `dsh-onebot-qq` 插件（`dsh plugin add dsh-onebot-qq`），补丁按 **0.9.6** 写的
 - 可选：`ffmpeg`（TTS 需要调音量/限幅时用）
+
+## 这次更新了什么
+
+- `dsh-qq-meme`：修掉「插件静默加载失败」——`package.json` 里多一个 `exports` 字段会让整个模块注册不上，现在改成动态导入并把失败原因打到控制台；提示词只注入 QQ 会话，桌面端不会再莫名其妙往 QQ 发图
+- `dsh-qq-exec`：审批改成 QQ 里回 **`/allow 编号`**（走宿主命令通道），「允许」这条不会再被当成普通消息喂给模型、也不会再重复弹审批
+- `patches/onebot-qq`：给 `dsh-onebot-qq` 打的四个补丁
+  - 长回复自动拆条：换行即断，单条超过 55 字再按标点续切，最多 8 条，条间停顿 280–620ms
+  - `/allow`、`/deny` 转发给宿主插件注册的命令
+  - 语音先转写再派发（避免先回「听不到」、几秒后又补一句）
+  - 排队提示静默，不再刷「稍等」之类
+- `dsh-doubao-tts`：合成后可按 `gainDb` 增益、`limit` 限幅、`loudnessTarget` 响度归一化（seed-tts-2.0 与 seed-audio 都走同一套）
+
+补丁会覆盖 `dsh-onebot-qq` 里的同名文件，首次覆盖前留 `*.upstream.js` 备份，想回滚直接改回来即可。
 
 ## 安装
 
@@ -30,8 +44,11 @@ powershell -ExecutionPolicy Bypass -File .\install.ps1
 脚本会依次问：主号 QQ、小号 QQ、NapCat HTTP token、数据目录（默认 `D:\DSH-Data`）、NapCat 目录，然后：
 
 1. 把这些值写进各插件的 `cordis.patch.yml`（替换 `@ADMIN_QQ@`、`@NAPCAT_TOKEN@`、`@DSH_DATA@` 等占位符）
-2. 建好数据目录（`persona`、`qq\memes`、`qq\media`、`speech\doubao`、`memory`）
+2. 建好数据目录（`persona`、`qq\memes`、`qq\media`、`speech\doubao`、`speech`、`tools`、`memory`）
 3. 依次执行 `dsh plugin --profile desktop add <插件目录>`
+4. 给已装的 `dsh-onebot-qq` 打补丁，并把语音转写钩子放到 `<数据目录>\tools\`、写一份 `<数据目录>\speech\qq-native.json`
+
+第 4 步要是提示找不到 `dsh-onebot-qq`，先把 onebot 插件装好，再 `.\install.ps1 -SkipAdd` 跑一次补丁。
 
 也可以带参数静默安装：
 
@@ -76,7 +93,8 @@ powershell -ExecutionPolicy Bypass -File .\install.ps1
 
 - 依赖 NapCat，QQ 客户端版本升级有可能影响富媒体（语音/图片）发送
 - QQ 空间接口靠 cookies，掉登录后需要重扫
-- `dsh-qq-exec` 的审批回复走宿主斜杠命令，需要 `dsh-onebot-qq` ≥ 0.9.6（其对宿主命令转发做过兼容）
+- `dsh-qq-exec` 的审批回复走宿主斜杠命令，**需要本仓库的 `patches/onebot-qq` 补丁**（`dsh-onebot-qq` 0.9.6 本身不转发宿主命令）
+- 补丁按 `dsh-onebot-qq` 0.9.6 写的，升级插件后需要重新打
 - 只在 Windows + PowerShell 5.1 上验证过
 
 ## 许可

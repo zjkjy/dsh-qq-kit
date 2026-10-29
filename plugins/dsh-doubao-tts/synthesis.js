@@ -1,8 +1,8 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {randomUUID} from 'node:crypto';
-export const SETTINGS='@DSH_DATA@/speech/doubao/settings.json';
-export const OUTPUT_DIR='@DSH_DATA@/qq/media';
+export const SETTINGS='D:/DSH-Data/speech/doubao/settings.json';
+export const OUTPUT_DIR='D:/DSH-Data/qq/media';
 const ENDPOINT_TTS='https://openspeech.bytedance.com/api/v3/tts/unidirectional';
 const ENDPOINT_AUDIO='https://openspeech.bytedance.com/api/v3/tts/create';
 const SEED_AUDIO_MODELS=new Set(['seed-audio-1.0']);

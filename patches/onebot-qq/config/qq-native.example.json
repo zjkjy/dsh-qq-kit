@@ -1,0 +1,7 @@
+{
+  "enabled": true,
+  "engine": "qq-native",
+  "maxAttempts": 8,
+  "retryDelayMs": 1000,
+  "fallbackToWhisper": false
+}
