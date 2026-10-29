@@ -1,0 +1,21 @@
+{
+  "name": "dsh-qq-profile",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "改 QQ 小号的昵称、签名、头像、在线状态。参考 AstrBot 的 astrbot_plugin_qqprofile，直接调 NapCat 的 set_qq_profile / set_self_longnick / set_qq_avatar / set_online_status。",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "cordis.patch.yml"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

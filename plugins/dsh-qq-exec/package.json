@@ -1,0 +1,15 @@
+{
+  "name": "dsh-qq-exec",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "index.js",
+  "description": "QQ admin-only computer operation tool with per-execution approval via NapCat",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh-tools": "*"
+  }
+}

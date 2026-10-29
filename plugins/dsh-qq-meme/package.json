@@ -1,0 +1,21 @@
+{
+  "name": "dsh-qq-meme",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "本地表情包库：按标签挑图发到 QQ、把聊天里的图收进标签。参考 AstrBot 的 astrbot_plugin_meme_manager，只保留标签目录 + 随机取图 + 去重。",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "cordis.patch.yml"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

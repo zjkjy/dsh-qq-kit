@@ -1,0 +1,1 @@
+export async function resolve(specifier,context,nextResolve){if(specifier==='@deepseek-ai/dsh-tools')return {url:'data:text/javascript,export%20const%20defineTool%3Dx%3D%3Ex',shortCircuit:true};return nextResolve(specifier,context);}

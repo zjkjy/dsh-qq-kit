@@ -1,0 +1,4 @@
+- insert:
+    - id: doubao-tts
+      name: dsh-doubao-tts-local
+      config: {}

@@ -1,0 +1,24 @@
+# dsh-qq-meme —— 用 cordis.patch.yml 挂载
+#
+# 顶层 YAML 数组；插入一行，id 与插件包名一致。
+# 表情库就是 memesDir 下的文件夹结构：<memesDir>/<标签>/<图片>。
+# 加标签 = 新建文件夹；改名标签 = 重命名文件夹。
+- insert:
+  - id: qq-meme
+    name: 'dsh-qq-meme'
+    config:
+      enabled: true
+      # 表情库根目录
+      memesDir: '@DSH_DATA@\qq\memes'
+      # NapCat 的 HTTP 服务端（本地回环）
+      apiBase: 'http://127.0.0.1:3001'
+      apiToken: '@NAPCAT_TOKEN@'
+      # 默认发给谁：private:<QQ号> 或 group:<群号>
+      defaultTarget: 'private:@ADMIN_QQ@'
+      # 单张图大小上限（MB）
+      maxImageMb: 8
+      # 每个会话记住最近发过的几张，避免连着发同一张
+      recentWindow: 12
+      # 只在 QQ 会话里注入提示词、放开三个 qq_meme_* 工具；
+      # 桌面端会话既不提示也不许发图。改成 false 恢复全局可用。
+      qqOnly: true

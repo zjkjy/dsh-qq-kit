@@ -1,0 +1,21 @@
+{
+  "name": "dsh-qq-qzone",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "用 QQ 小号发说说、看自己最近的说说。参考 AstrBot 的 astrbot_plugin_qzone：NapCat 取 cookies + qzone CGI。",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "cordis.patch.yml"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

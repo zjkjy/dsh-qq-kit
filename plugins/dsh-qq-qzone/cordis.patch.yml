@@ -1,0 +1,13 @@
+# dsh-qq-qzone —— QQ 空间
+#
+# 两个工具：qq_qzone_publish（纯文字发说说）/ qq_qzone_recent（看自己最近的说说）
+# 登录态是运行时向 NapCat 要的 cookies，不落盘、不用手工填。
+- insert:
+  - id: qq-qzone
+    name: 'dsh-qq-qzone'
+    config:
+      enabled: true
+      apiBase: 'http://127.0.0.1:3001'
+      apiToken: '@NAPCAT_TOKEN@'
+      domain: 'user.qzone.qq.com'
+      maxTextLength: 1000

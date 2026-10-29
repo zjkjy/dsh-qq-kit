@@ -1,0 +1,13 @@
+# dsh-qq-profile —— 改小号资料
+#
+# 四个工具：qq_profile_get / qq_profile_set_nickname /
+# qq_profile_set_signature / qq_profile_set_avatar / qq_profile_set_status
+#
+# apiBase / apiToken 是 NapCat 的 HTTP 服务端，跟 dsh-qq-meme 用的是同一个。
+- insert:
+  - id: qq-profile
+    name: 'dsh-qq-profile'
+    config:
+      enabled: true
+      apiBase: 'http://127.0.0.1:3001'
+      apiToken: '@NAPCAT_TOKEN@'

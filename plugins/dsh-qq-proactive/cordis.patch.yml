@@ -1,0 +1,26 @@
+# dsh-qq-proactive —— 主动聊天
+#
+# 到点后不是从模板里挑，而是把 @DSH_DATA@\persona\小菁.md 交给模型，
+# 让它自己想一句要发的话。三重限制：活跃时段 + 最小间隔 + 每日上限。
+- insert:
+  - id: qq-proactive
+    name: 'dsh-qq-proactive'
+    config:
+      enabled: true
+      apiBase: 'http://127.0.0.1:3001'
+      apiToken: '@NAPCAT_TOKEN@'
+      target: 'private:@ADMIN_QQ@'
+      stateFile: '@DSH_DATA@\qq\proactive-state.json'
+      gatewayBase: 'http://127.0.0.1:3425/v1'
+      gatewayKey: ''
+      model: 'deepseek/deepseek-flash'
+      personaFile: '@DSH_DATA@\persona\小菁.md'
+      checkIntervalMinutes: 10
+      activeStart: '08:30'
+      activeEnd: '23:30'
+      minGapMinutes: 180
+      dailyMax: 3
+      probability: 0.5
+      fallbackTemplates:
+        - '在干嘛呢'
+        - '突然想问问你，今天过得怎么样'

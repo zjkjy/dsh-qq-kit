@@ -1,0 +1,21 @@
+{
+  "name": "dsh-qq-proactive",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "让小号自己先开口：活跃时段内按概率发预设消息 + 给模型一个随时主动发消息的工具。参考 AstrBot 的 astrbot_plugin_proactive_chat。",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "cordis.patch.yml"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

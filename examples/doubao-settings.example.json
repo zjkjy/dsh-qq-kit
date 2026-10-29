@@ -1,0 +1,13 @@
+{
+  "authMode": "app-token",
+  "appId": "<你的 AppID>",
+  "accessToken": "<你的 AccessToken>",
+  "apiKey": "",
+  "resourceId": "seed-tts-2.0",
+  "model": "",
+  "speaker": "zh_female_meilinvyou_uranus_bigtts",
+  "format": "mp3",
+  "sampleRate": 24000,
+  "gainDb": 0,
+  "loudnessTarget": 0
+}

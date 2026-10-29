@@ -1,0 +1,13 @@
+- insert:
+    - id: qq-exec
+      name: dsh-qq-exec
+      config:
+        enabled: true
+        adminQQ: "@ADMIN_QQ@"
+        napcatApi: "http://127.0.0.1:3001"
+        napcatToken: "@NAPCAT_TOKEN@"
+        listenHost: "127.0.0.1"
+        listenPort: 8654
+        listenPath: "/approval"
+        pushToken: "@PUSH_TOKEN@"
+        approvalTimeoutMs: 300000
